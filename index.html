@@ -376,25 +376,23 @@ function initBlob(blob){
 }
 
 // ═══════════ 3D VIEWER ═══════════
-var vArts=[{id:'yuhu',name:'玉虎',meta:'长4.8cm · 肖家屋脊 · 距今4200年',desc:'呈蹲踞状，虎首高昂，双目圆睁。虎身以阴线刻出斑纹，整体浑厚威猛。1987年出土。',n:8,path:'3D/玉虎/',files:['玉虎正左.png','玉虎前左.png','玉虎正前.png','玉虎前右.png','玉虎正右.png','玉虎后右.png','玉虎正后.png','玉虎后左.png']},{id:'yufeng',name:'玉凤',meta:'长7.5cm · 肖家屋脊 · 距今4200年',desc:'被誉为「中华第一凤」。凤鸟展翅欲飞，线条流畅细腻。',n:8,path:'3D/玉凤/',files:['玉凤1.png','玉凤2.png','玉凤3.png','玉凤4.png','玉凤5.png','玉凤6.png','玉凤7.png','玉凤8.png']},{id:'yuren',name:'玉人首',meta:'谭家岭 · 距今4200-4000年',desc:'圆雕作品，面部刻画细致，双耳佩环，头顶冠饰。',n:8,path:'3D/玉人首/',files:['玉人首1.png','玉人首2.png','玉人首3.png','玉人首4.png','玉人首5.png','玉人首6.png','玉人首7.png','玉人首8.png']},{id:'yuchan',name:'玉蝉',meta:'谭家岭 · 距今4200-4000年',desc:'造型写实，蝉翼纹理清晰。蝉象征复活与永生。',n:8,path:'3D/玉蝉/',files:['玉蝉1.png','玉蝉2.png','玉蝉3.png','玉蝉4.png','玉蝉5.png','玉蝉6.png','玉蝉7.png','玉蝉8.png']},{id:'taoding',name:'陶鼎',meta:'邓家湾 · 距今4500年',desc:'石家河文化典型陶器，三足鼎立，器身饰有篮纹。',n:4,path:'3D/陶鼎/',files:['陶鼎正面.png','陶鼎右侧.png','陶鼎背面.png','陶鼎左侧.png']},{id:'yuying',name:'玉鹰',meta:'谭家岭 · 距今4000年',desc:'玉鹰展翅，造型矫健有力。可能是部落图腾或权力的象征。',n:8,path:'3D/玉鹰/',files:['玉鹰1.png','玉鹰2.png','玉鹰3.png','玉鹰4.png','玉鹰5.png','玉鹰6.png','玉鹰7.png','玉鹰8.png']}];
-var vCa=0,vCf=0,vF=[];
-function vFrm(a,fi){return a.path+a.files[fi%a.n]}
-var vpRunning=false;
-function startVP(){
-  var pc=document.getElementById('vo-particles'),pctx=pc.getContext('2d');pc.width=innerWidth;pc.height=innerHeight;
-  var ps=[];for(var i=0;i<80;i++)ps.push({x:Math.random()*pc.width,y:Math.random()*pc.height,r:Math.random()*1.5+.6,vx:(Math.random()-.5)*.35,vy:-(Math.random()*.5+.1),o:Math.random()*.5+.2});
-  if(vpRunning)return;vpRunning=true;
-  (function lp(){if(!vpRunning)return;pctx.clearRect(0,0,pc.width,pc.height);ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;if(p.y<-10){p.y=pc.height+10;p.x=Math.random()*pc.width}pctx.beginPath();pctx.arc(p.x,p.y,p.r,0,Math.PI*2);pctx.fillStyle='rgba(189,155,74,'+p.o+')';pctx.fill()});requestAnimationFrame(lp)})()
-}
-function stopVP(){vpRunning=false}
-function openV(id){
-  var i=vArts.findIndex(function(a){return a.id===id});if(i<0)return;vCa=i;var a=vArts[i];vF=[];for(var j=0;j<a.n;j++)vF.push(vFrm(a,j));vCf=0;
-  document.getElementById('v-img').src=vF[vCf];document.getElementById('v-name').textContent=a.name;document.getElementById('v-meta').textContent=a.meta;document.getElementById('v-desc').textContent=a.desc;document.getElementById('v-info').textContent='拖拽旋转 360 · '+a.n+'个角度';
-  var imgs=[];for(var k=0;k<vF.length;k++){var img=new Image();img.src=vF[k];imgs.push(img)}document.getElementById('vo').style.display='flex';startVP();playSFX('view')
-}
-var vWrap=document.getElementById('v-wrap');vWrap.addEventListener('pointerdown',function(e){e.preventDefault();var dx=e.clientX,sf=vCf,el=vWrap,id=e.pointerId;var mv=function(ev){if(ev.pointerId!==id)return;var nf=((sf+Math.round((ev.clientX-dx)/35))%vArts[vCa].n+vArts[vCa].n)%vArts[vCa].n;if(nf!==vCf){vCf=nf;document.getElementById('v-img').src=vF[vCf]}};var up=function(ev){if(ev.pointerId!==id)return;document.removeEventListener('pointermove',mv);document.removeEventListener('pointerup',up)};document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up)});
-
-
+	var vArts=[{id:'yuhu',name:'玉虎',meta:'长4.8cm · 肖家屋脊 · 距今4200年',desc:'呈蹲踞状，虎首高昂，双目圆睁。虎身以阴线刻出斑纹，整体浑厚威猛。1987年出土。',n:8,path:'3D/玉虎/',files:['玉虎正左.png','玉虎前左.png','玉虎正前.png','玉虎前右.png','玉虎正右.png','玉虎后右.png','玉虎正后.png','玉虎后左.png']},{id:'yufeng',name:'玉凤',meta:'长7.5cm · 肖家屋脊 · 距今4200年',desc:'被誉为「中华第一凤」。凤鸟展翅欲飞，线条流畅细腻。',n:8,path:'3D/玉凤/',files:['玉凤1.png','玉凤2.png','玉凤3.png','玉凤4.png','玉凤5.png','玉凤6.png','玉凤7.png','玉凤8.png']},{id:'yuren',name:'玉人首',meta:'谭家岭 · 距今4200-4000年',desc:'圆雕作品，面部刻画细致，双耳佩环，头顶冠饰。',n:8,path:'3D/玉人首/',files:['玉人首1.png','玉人首2.png','玉人首3.png','玉人首4.png','玉人首5.png','玉人首6.png','玉人首7.png','玉人首8.png']},{id:'yuchan',name:'玉蝉',meta:'谭家岭 · 距今4200-4000年',desc:'造型写实，蝉翼纹理清晰。蝉象征复活与永生。',n:8,path:'3D/玉蝉/',files:['玉蝉1.png','玉蝉2.png','玉蝉3.png','玉蝉4.png','玉蝉5.png','玉蝉6.png','玉蝉7.png','玉蝉8.png']},{id:'taoding',name:'陶鼎',meta:'邓家湾 · 距今4500年',desc:'石家河文化典型陶器，三足鼎立，器身饰有篮纹。',n:4,path:'3D/陶鼎/',files:['陶鼎正面.png','陶鼎右侧.png','陶鼎背面.png','陶鼎左侧.png']},{id:'yuying',name:'玉鹰',meta:'谭家岭 · 距今4000年',desc:'玉鹰展翅，造型矫健有力。可能是部落图腾或权力的象征。',n:8,path:'3D/玉鹰/',files:['玉鹰1.png','玉鹰2.png','玉鹰3.png','玉鹰4.png','玉鹰5.png','玉鹰6.png','玉鹰7.png','玉鹰8.png']}];
+	var vCa=0,vCf=0,vF=[],vReady=false,vLoaded=0,vTotal=0;
+	function vFrm(a,fi){return a.path+a.files[fi%a.n]}
+	var vpRunning=false;
+	function startVP(){
+	  var pc=document.getElementById('vo-particles'),pctx=pc.getContext('2d');pc.width=innerWidth;pc.height=innerHeight;
+	  var ps=[];for(var i=0;i<80;i++)ps.push({x:Math.random()*pc.width,y:Math.random()*pc.height,r:Math.random()*1.5+.6,vx:(Math.random()-.5)*.35,vy:-(Math.random()*.5+.1),o:Math.random()*.5+.2});
+	  if(vpRunning)return;vpRunning=true;
+	  (function lp(){if(!vpRunning)return;pctx.clearRect(0,0,pc.width,pc.height);ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;if(p.y<-10){p.y=pc.height+10;p.x=Math.random()*pc.width}pctx.beginPath();pctx.arc(p.x,p.y,p.r,0,Math.PI*2);pctx.fillStyle='rgba(189,155,74,'+p.o+')';pctx.fill()});requestAnimationFrame(lp)})()
+	}
+	function stopVP(){vpRunning=false}
+	function openV(id){
+	  var i=vArts.findIndex(function(a){return a.id===id});if(i<0)return;vCa=i;var a=vArts[i];vF=[];for(var j=0;j<a.n;j++)vF.push(vFrm(a,j));vCf=0;vReady=false;vLoaded=0;vTotal=a.n;
+	  document.getElementById('v-name').textContent=a.name;document.getElementById('v-meta').textContent=a.meta;document.getElementById('v-desc').textContent=a.desc;document.getElementById('v-info').textContent='图片加载中...';document.getElementById('vo').style.display='flex';startVP();playSFX('view');
+	  var preloaded=[];for(var k=0;k<a.n;k++){var img=new Image();img.onload=function(){vLoaded++;if(vLoaded>=vTotal){vReady=true;document.getElementById('v-img').src=vF[0];document.getElementById('v-info').textContent='拖拽旋转 360 · '+vTotal+'个角度'}};img.onerror=function(){vLoaded++;if(vLoaded>=vTotal&&!vReady){vReady=true;document.getElementById('v-img').src=vF[0];document.getElementById('v-info').textContent='拖拽旋转 360 · '+vTotal+'个角度'}};img.src=vF[k];preloaded.push(img)}
+	}
+	var vWrap=document.getElementById('v-wrap');vWrap.addEventListener('pointerdown',function(e){if(!vReady)return;e.preventDefault();var dx=e.clientX,sf=vCf,id=e.pointerId;var mv=function(ev){if(!vReady||ev.pointerId!==id)return;var nf=((sf+Math.round((ev.clientX-dx)/35))%vTotal+vTotal)%vTotal;if(nf!==vCf){vCf=nf;document.getElementById('v-img').src=vF[vCf]}};var up=function(ev){if(ev.pointerId!==id)return;document.removeEventListener('pointermove',mv);document.removeEventListener('pointerup',up)};document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up)});
 // ═══════════ COMIC ═══════════
 var comicSub=0,comicR=[0,0,0],comicPA=[],comicPB=[],comicPC=[],comicDone=false;
 function makeComicPanels(gid,labels,colors,lid){
