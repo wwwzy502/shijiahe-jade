@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Test</title>
+<style>
+body{background:#0A0908;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0}
+.blob{position:relative;width:200px;height:180px}
+.blob img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.blob canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.ripple{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;opacity:0}
+.ripple.show{opacity:1}
+.ripple .r{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);border-radius:50%;border:2px solid rgba(255,255,255,.6);animation:rOut 1s ease-out infinite}
+.ripple .r:nth-child(2){animation-delay:.3s;border-color:rgba(255,255,255,.4)}
+.ripple .r:nth-child(3){animation-delay:.6s;border-color:rgba(255,255,255,.25)}
+@keyframes rOut{0%{width:30px;height:30px;opacity:.8}100%{width:70px;height:70px;opacity:0}}
+</style></head><body>
+<div class="blob" id="blob">
+  <img src="古画风/玉虎.png" alt="">
+  <canvas id="cv"></canvas>
+  <div class="ripple" id="ripple"><div class="r"></div><div class="r"></div><div class="r"></div></div>
+</div>
+<script>
+var cv=document.getElementById('cv'),ctx=cv.getContext('2d'),blob=document.getElementById('blob'),ripple=document.getElementById('ripple');
+var w=200,h=180;cv.width=w;cv.height=h;
+
+// Dirt layer
+ctx.fillStyle='#2E1C0E';ctx.fillRect(0,0,w,h);
+for(var i=0;i<600;i++){ctx.fillStyle='rgba('+(30+Math.random()*20)+','+(15+Math.random()*10)+','+(5+Math.random()*6)+','+(.2+Math.random()*.3)+')';ctx.beginPath();ctx.arc(Math.random()*w,Math.random()*h,Math.random()*2.5,0,Math.PI*2);ctx.fill();}
+
+// Scratch
+var br=42,ac=false,sc=0;
+function getXY(e){var r=cv.getBoundingClientRect();var cx=e.touches?e.touches[0].clientX:e.clientX;var cy=e.touches?e.touches[0].clientY:e.clientY;return{sx:(cx-r.left)*(w/r.width),sy:(cy-r.top)*(h/r.height)};}
+function sa(x,y){ctx.globalCompositeOperation='destination-out';ctx.fillStyle='#000';ctx.beginPath();ctx.arc(x,y,br,0,Math.PI*2);ctx.fill();ctx.globalCompositeOperation='source-over';sc++;}
+cv.addEventListener('mousedown',function(e){ac=true;sc=0;var p=getXY(e);sa(p.sx,p.sy);e.preventDefault();});
+window.addEventListener('mousemove',function(e){if(!ac)return;var p=getXY(e);sa(p.sx,p.sy);if(sc>30&&!blob._done){blob._done=true;ripple.classList.add('show');}});
+window.addEventListener('mouseup',function(){ac=false;});
+cv.addEventListener('touchstart',function(e){ac=true;sc=0;var p=getXY(e);sa(p.sx,p.sy);e.preventDefault();});
+window.addEventListener('touchmove',function(e){if(!ac)return;e.preventDefault();var p=getXY(e);sa(p.sx,p.sy);if(sc>30&&!blob._done){blob._done=true;ripple.classList.add('show');}},{passive:false});
+window.addEventListener('touchend',function(){ac=false;});
+blob.addEventListener('click',function(){if(blob._done)alert('打开3D！');});
+</script></body></html>
