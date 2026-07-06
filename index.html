@@ -136,7 +136,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
 
 <div id="bg-base"></div><div class="bg-layer" id="cloud-back"></div><div class="bg-layer" id="cloud-mid"></div><div class="bg-layer" id="cloud-front"></div>
 
-<audio id="bgm" loop preload="auto" src="音效/bgm.MP3"></audio>
+<audio id="bgm" loop preload="none" src="音效/bgm.MP3"></audio>
 <audio id="sfx-start" preload="auto" src="音效/start.MP3"></audio>
 <audio id="sfx-panel" preload="auto" src="音效/panel.MP3"></audio>
 <audio id="sfx-page" preload="auto" src="音效/page.MP3"></audio>
@@ -292,12 +292,12 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
 <script>
 // ═══════════ LOADING ═══════════
 var p=0,ti=setInterval(function(){p+=Math.random()*10+3;if(p>=100){p=100;clearInterval(ti);document.getElementById('ltxt').textContent='加载完成';document.getElementById('lenter').classList.add('show')}document.getElementById('lbar').style.width=p+'%';if(p>40)document.getElementById('ltxt').textContent='正在唤醒千年玉魂...';if(p>75)document.getElementById('ltxt').textContent='即将开启时空之门...'},500);
-function enter(){playSFX("start");var l=document.getElementById('loading');l.style.transition='opacity .6s';l.style.opacity='0';setTimeout(function(){l.classList.add('hide');init();var mb=document.getElementById('music-btn');mb.style.display='block';var b=document.getElementById('bgm');b.volume=0.7;setTimeout(function(){b.play().then(function(){document.getElementById('music-icon').style.animation='musicSpin 3s linear infinite'}).catch(function(){mb.style.opacity='.3'})},1000)},600)}
+function enter(){playSFX("start");var l=document.getElementById('loading');l.style.transition='opacity .6s';l.style.opacity='0';setTimeout(function(){l.classList.add('hide');init();var mb=document.getElementById('music-btn');mb.style.display='block';var b=document.getElementById('bgm');b.volume=0.7;b.load();var startBGM=function(){b.play().then(function(){document.getElementById('music-icon').style.animation='musicSpin 3s linear infinite'}).catch(function(){mb.style.opacity='.3'})};if(b.readyState>=2){startBGM()}else{b.addEventListener('canplay',startBGM,{once:true})}},600)}
 
 // ═══════════ GLOBAL ═══════════
 var cur=1;
 function playSFX(id){var a=document.getElementById('sfx-'+id);if(a){a.currentTime=0;a.play().catch(function(){})}}
-function toggleMusic(){var b=document.getElementById('bgm'),i=document.getElementById('music-icon');if(b.paused){b.play();i.style.animation='musicSpin 3s linear infinite'}else{b.pause();i.style.animation='none'}}
+function toggleMusic(){var b=document.getElementById('bgm'),i=document.getElementById('music-icon');if(b.paused){if(b.readyState===0)b.load();var playB=function(){b.play();i.style.animation='musicSpin 3s linear infinite'};if(b.readyState>=2)playB();else b.addEventListener('canplay',playB,{once:true})}else{b.pause();i.style.animation='none'}}
 function goPage(n){
   if(n<1||n>4)return;
   for(var i=1;i<=4;i++)document.getElementById('pg'+i).classList.toggle('on',i===n);
@@ -334,7 +334,7 @@ function openBox(){
   vo.style.display='flex';requestAnimationFrame(function(){requestAnimationFrame(function(){vo.style.opacity='1'})});
   var lh=document.createElement('div');lh.style.cssText='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#BD9B4A;font-size:16px;letter-spacing:.1em;z-index:10';lh.textContent='视频加载中...';vo.appendChild(lh);v.load();var onReady=function(){lh.remove();v.play().then(function(){}).catch(function(){ev()})};if(v.readyState>=4){onReady()}else{v.addEventListener('canplaythrough',onReady,{once:true});v.addEventListener('error',function(){lh.textContent='加载失败请跳过';lh.style.color='#888'},{once:true})}v.onended=ev;
   document.getElementById('skip-video').onclick=function(){ev()};
-  function ev(){v.pause();v.currentTime=0;vo.style.opacity='0';setTimeout(function(){vo.style.display='none';document.getElementById('box-img').src='玉匣打开.jpg';document.getElementById('box-glow').classList.add('on');document.getElementById('box-hint').textContent='玉匣已开';var sw=document.getElementById('scroll-wrap');sw.style.display='block';sw.classList.add('open');document.getElementById('strata-section').style.display='block';document.getElementById('scroll-hint').style.display='block';if(wasBGM)bgm.play().catch(function(){})},800)}
+  function ev(){v.pause();v.currentTime=0;vo.style.opacity='0';setTimeout(function(){vo.style.display='none';document.getElementById('box-img').src='玉匣打开.jpg';document.getElementById('box-glow').classList.add('on');document.getElementById('box-hint').textContent='玉匣已开';var sw=document.getElementById('scroll-wrap');sw.style.display='block';sw.classList.add('open');document.getElementById('strata-section').style.display='block';document.getElementById('scroll-hint').style.display='block';if(wasBGM){bgm.load();var rp=function(){bgm.play().catch(function(){})};if(bgm.readyState>=2)rp();else bgm.addEventListener('canplay',rp,{once:true})}},800)}
 }
 
 // ═══════════ STRATA ═══════════
