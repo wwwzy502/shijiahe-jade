@@ -253,8 +253,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
         <div class="cert-stamp">石 家 河</div>
       </div>
       <div class="btn-row"><button class="btn-out" onclick="goPage(1)">返回玉匣</button><button class="btn-gold" onclick="saveCert()">保存证书</button><button class="btn-out" onclick="shareCert()">分享给朋友</button></div>
-      <div style="text-align:center;margin-top:24px"><p style="font-size:11px;color:#B8A99A;margin-bottom:8px">扫码体验</p><img src="qrcode.png" style="width:100px;height:100px;border-radius:8px;border:2px solid #BD9B4A"></div>
-    </div>
+          </div>
   </div>
 </div></div>
 
@@ -623,8 +622,9 @@ ctx.restore();
 ctx.fillStyle='#8B5E3C';ctx.font='12px \"KaiTi\",\"STKaiti\",serif';ctx.textAlign='center';ctx.fillText('长江中游史前文明之巅 · 实证中华五千年文明史',W/2,575);
 // Copyright
 ctx.fillStyle='rgba(139,94,60,.25)';ctx.font='9px Georgia,serif';ctx.textAlign='right';ctx.fillText('叩玉·石家河',W-55,H-18);
-c.toBlob(function(b){var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='石家河考古证书.png';a.click();URL.revokeObjectURL(u)})}
+var qrImg=document.getElementById('qr-img');if(qrImg&&qrImg.complete){ctx.drawImage(qrImg,620,440,120,120);ctx.fillStyle='#8B5E3C';ctx.font='10px \"KaiTi\",\"STKaiti\",serif';ctx.textAlign='center';ctx.fillText('扫码体验H5',680,575)}c.toBlob(function(b){var u=URL.createObjectURL(b);var a=document.createElement('a');a.href=u;a.download='石家河考古证书.png';a.click();URL.revokeObjectURL(u)})}
 function shareCert(){var txt=userName+'完成了叩玉·石家河四千年文明之旅！';if(navigator.share){navigator.share({title:'叩玉·石家河',text:txt}).catch(function(){})}else{var ta=document.createElement('textarea');ta.value=txt;ta.style.cssText='position:fixed;left:-9999px';document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);alert('链接已复制！')}}
 </script>
+<img id="qr-img" src="qrcode.png" style="display:none">
 </body>
 </html>
