@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,maximum-scale=1">
 <title>叩玉·石家河</title>
-<link rel="icon" type="image/png" href="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/favicon.png">
-<link rel="apple-touch-icon" href="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D8;overflow:hidden;-webkit-tap-highlight-color:transparent;user-select:none}
@@ -128,7 +128,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
 <div id="grain"></div>
 
 <div id="loading">
-  <div class="lr-wrap"><div class="lr"></div><div class="lr"></div><div class="li"><img src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%25E5%259B%25BE%25E6%25A0%2587.png" alt="" onerror="this.style.display='none'"></div></div>
+  <div class="lr-wrap"><div class="lr"></div><div class="lr"></div><div class="li"><img src="%E5%9B%BE%E6%A0%87.png" alt="" onerror="this.style.display='none'"></div></div>
   <div class="lbar-bg"><div class="lbar" id="lbar"></div></div>
   <p class="ltxt" id="ltxt">正在连接石家河文明...</p>
   <button id="lenter" onclick="enter()">开 始 祭 祀</button>
@@ -136,19 +136,19 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
 
 <div id="bg-base"></div><div class="bg-layer" id="cloud-back"></div><div class="bg-layer" id="cloud-mid"></div><div class="bg-layer" id="cloud-front"></div>
 
-<audio id="bgm" loop preload="auto" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%E9%9F%B3%E6%95%88/bgm.MP3"></audio>
-<audio id="sfx-start" preload="auto" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%E9%9F%B3%E6%95%88/start.MP3"></audio>
-<audio id="sfx-panel" preload="auto" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%E9%9F%B3%E6%95%88/panel.MP3"></audio>
-<audio id="sfx-page" preload="auto" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%E9%9F%B3%E6%95%88/page.MP3"></audio>
-<audio id="sfx-box" preload="auto" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%E9%9F%B3%E6%95%88/box_appear.MP3"></audio>
-<audio id="sfx-scratch" preload="auto" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%E9%9F%B3%E6%95%88/scratch.MP3"></audio>
-<audio id="sfx-dig" preload="auto" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%E9%9F%B3%E6%95%88/dig.MP3"></audio>
-<audio id="sfx-switch" preload="auto" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%E9%9F%B3%E6%95%88/switch.MP3"></audio>
-<audio id="sfx-view" preload="auto" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%E9%9F%B3%E6%95%88/view.MP3"></audio>
-<audio id="sfx-gear" preload="auto" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%E9%9F%B3%E6%95%88/%E9%BD%BF%E8%BD%AE.MP3"></audio>
-<audio id="sfx-flip" preload="auto" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%E9%9F%B3%E6%95%88/%E7%BF%BB.MP3"></audio>
-<audio id="sfx-btn" preload="auto" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%E9%9F%B3%E6%95%88/%E6%8C%89%E9%92%AE.MP3"></audio>
-<div id="app"><div id="music-btn" style="position:absolute;top:12px;right:12px;z-index:300;width:32px;height:32px;cursor:pointer;display:none" onclick="toggleMusic()"><img src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%25E9%259F%25B3%25E4%25B9%2590.png" id="music-icon" style="width:100%;height:100%;object-fit:contain"></div><div id="pages">
+<audio id="bgm" loop preload="auto" src="音效/bgm.MP3"></audio>
+<audio id="sfx-start" preload="auto" src="音效/start.MP3"></audio>
+<audio id="sfx-panel" preload="auto" src="音效/panel.MP3"></audio>
+<audio id="sfx-page" preload="auto" src="音效/page.MP3"></audio>
+<audio id="sfx-box" preload="auto" src="音效/box_appear.MP3"></audio>
+<audio id="sfx-scratch" preload="auto" src="音效/scratch.MP3"></audio>
+<audio id="sfx-dig" preload="auto" src="音效/dig.MP3"></audio>
+<audio id="sfx-switch" preload="auto" src="音效/switch.MP3"></audio>
+<audio id="sfx-view" preload="auto" src="音效/view.MP3"></audio>
+<audio id="sfx-gear" preload="auto" src="音效/齿轮.MP3"></audio>
+<audio id="sfx-flip" preload="auto" src="音效/翻.MP3"></audio>
+<audio id="sfx-btn" preload="auto" src="音效/按钮.MP3"></audio>
+<div id="app"><div id="music-btn" style="position:absolute;top:12px;right:12px;z-index:300;width:32px;height:32px;cursor:pointer;display:none" onclick="toggleMusic()"><img src="%E9%9F%B3%E4%B9%90.png" id="music-icon" style="width:100%;height:100%;object-fit:contain"></div><div id="pages">
 
 <!-- PAGE 1: COMIC --><!-- PAGE 2: COMIC -->
 <div class="page on" id="pg1" style="overflow:hidden">
@@ -156,7 +156,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
     <div class="st" style="margin-bottom:12px"><h2>礼敬天地</h2><p class="en">RITUAL</p></div>
     <div class="comic-page-wrap" id="grid-a"></div>
     <div id="tap-hint-a" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:160;pointer-events:none;text-align:center">
-      <img src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%25E6%2589%258B%25E6%258C%2587.png" style="width:60px;height:60px;animation:comicPulse 1.5s ease-in-out infinite;position:relative;z-index:1">
+      <img src="%E6%89%8B%E6%8C%87.png" style="width:60px;height:60px;animation:comicPulse 1.5s ease-in-out infinite;position:relative;z-index:1">
       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.5);animation:rOut 1s ease-out infinite"></div>
       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.3);animation:rOut 1s .3s ease-out infinite"></div>
     </div>
@@ -166,7 +166,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
     <div class="st" style="margin-bottom:12px"><h2>礼敬天地</h2><p class="en">RITUAL</p></div>
     <div class="comic-page-wrap" id="grid-b"></div>
     <div id="tap-hint-b" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:160;pointer-events:none;text-align:center">
-      <img src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%25E6%2589%258B%25E6%258C%2587.png" style="width:60px;height:60px;animation:comicPulse 1.5s ease-in-out infinite;position:relative;z-index:1">
+      <img src="%E6%89%8B%E6%8C%87.png" style="width:60px;height:60px;animation:comicPulse 1.5s ease-in-out infinite;position:relative;z-index:1">
       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.5);animation:rOut 1s ease-out infinite"></div>
       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.3);animation:rOut 1s .3s ease-out infinite"></div>
     </div>
@@ -176,7 +176,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
     <div class="st" style="margin-top:20px"><h2>圣火宝匣</h2><p class="en">THE JADE BOX</p></div>
     <div id="grid-c" style="display:flex;flex-direction:column;align-items:center;gap:8px;width:min(370px,94vw)"></div>
     <div id="tap-hint-c" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:160;pointer-events:none;text-align:center">
-      <img src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%25E6%2589%258B%25E6%258C%2587.png" style="width:60px;height:60px;animation:comicPulse 1.5s ease-in-out infinite;position:relative;z-index:1">
+      <img src="%E6%89%8B%E6%8C%87.png" style="width:60px;height:60px;animation:comicPulse 1.5s ease-in-out infinite;position:relative;z-index:1">
       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.5);animation:rOut 1s ease-out infinite"></div>
       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.3);animation:rOut 1s .3s ease-out infinite"></div>
     </div>
@@ -197,7 +197,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
   </div>
   <div class="scroll-wrap" id="scroll-wrap" style="display:none">
     <div style="position:relative;margin:0 12px;line-height:0">
-      <img src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%25E5%258D%25B7%25E8%25BD%25B4.png" alt="" style="width:100%;height:auto;display:block">
+      <img src="%E5%8D%B7%E8%BD%B4.png" alt="" style="width:100%;height:auto;display:block">
       <div style="position:absolute;top:5%;left:24%;right:24%;bottom:5%;display:flex;flex-direction:column;justify-content:center">
         <h3 style="text-align:center;font-size:clamp(15px,2.8vw,22px);color:#3D2010;margin-bottom:4%;font-family:'KaiTi','STKaiti',serif;letter-spacing:.12em">石 家 河 文 明</h3>
         <p style="font-size:clamp(9px,1.6vw,13px);color:#5A3820;line-height:1.9;text-indent:2em;margin-bottom:4%;font-family:'KaiTi','STKaiti',serif">石家河遗址，位于湖北天门，乃长江中游迄今发现规模最大、等级最高的新石器时代聚落遗址群。总面积约八平方公里，距今六千五百至四千年。以精湛玉器工艺与发达稻作农业，实证长江流域同为中华文明核心发源地。</p>
@@ -243,7 +243,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
     </div>
     <div id="cert-show" style="display:none;flex-direction:column;align-items:center">
       <p id="cert-msg" style="font-size:16px;margin-bottom:16px;line-height:2;text-align:center"></p>
-      <div class="cert-card"><div style="text-align:center;margin-bottom:12px"><img src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%25E7%25BD%2591%25E9%25A1%25B5%25E5%259B%25BE%25E6%25A0%2587.png" style="width:40px;height:40px;object-fit:contain"></div><h3>考 古 发 现 证 书</h3>
+      <div class="cert-card"><div style="text-align:center;margin-bottom:12px"><img src="%E7%BD%91%E9%A1%B5%E5%9B%BE%E6%A0%87.png" style="width:40px;height:40px;object-fit:contain"></div><h3>考 古 发 现 证 书</h3>
         <div class="r"><span>探索者</span><span id="c-name">—</span></div>
         <div class="r"><span>发现文物</span><span>玉虎 玉凤 玉人首 玉蝉 陶鼎 玉鹰</span></div>
         <div class="r"><span>点燃圣火</span><span>已完成</span></div>
@@ -271,7 +271,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
 
 <!-- VIDEO OVERLAY -->
 <div id="video-overlay" style="position:fixed;inset:0;z-index:800;background:#000;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .8s">
-  <video id="intro-video" style="max-width:100%;max-height:100%;object-fit:contain;transition:opacity .8s" playsinline preload="none" loading="lazy" poster="封面.jpg" src="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/%25E7%258E%2589%25E5%258C%25A3%25E8%25A7%2586%25E9%25A2%2591.mp4"></video>
+  <video id="intro-video" style="max-width:100%;max-height:100%;object-fit:contain;transition:opacity .8s" playsinline preload="none" src="玉匣视频.mp4"></video>
   <button id="skip-video" style="position:absolute;top:16px;right:16px;color:rgba(255,255,255,.6);background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.25);padding:6px 16px;border-radius:16px;font-size:11px;cursor:pointer;letter-spacing:.1em">跳过 ▸</button>
 </div>
 
@@ -287,7 +287,6 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
 </div>
 
 <script>
-var CDN="https://gcore.jsdelivr.net/gh/wwwzy502/shijiahe-jade@main/";function cdn(p){return CDN+encodeURI(p)}
 // ═══════════ LOADING ═══════════
 var p=0,ti=setInterval(function(){p+=Math.random()*10+3;if(p>=100){p=100;clearInterval(ti);document.getElementById('ltxt').textContent='加载完成';document.getElementById('lenter').classList.add('show')}document.getElementById('lbar').style.width=p+'%';if(p>40)document.getElementById('ltxt').textContent='正在唤醒千年玉魂...';if(p>75)document.getElementById('ltxt').textContent='即将开启时空之门...'},500);
 // Background image preloader
