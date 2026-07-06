@@ -136,7 +136,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
 
 <div id="bg-base"></div><div class="bg-layer" id="cloud-back"></div><div class="bg-layer" id="cloud-mid"></div><div class="bg-layer" id="cloud-front"></div>
 
-<audio id="bgm" loop preload="none" src="音效/bgm.MP3"></audio>
+<audio id="bgm" loop preload="auto" src="音效/bgm.MP3"></audio>
 <audio id="sfx-start" preload="auto" src="音效/start.MP3"></audio>
 <audio id="sfx-panel" preload="auto" src="音效/panel.MP3"></audio>
 <audio id="sfx-page" preload="auto" src="音效/page.MP3"></audio>
@@ -183,7 +183,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;border:2px solid rgba(255,255,255,.5);animation:rOut 1s ease-out infinite"></div>
       <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.3);animation:rOut 1s .3s ease-out infinite"></div>
     </div>
-    <img id="final-img" src="玉匣/d1.jpg" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);z-index:180;width:min(500px,90vw);height:auto;object-fit:contain;transition:transform 1.5s cubic-bezier(.22,1,.36,1);pointer-events:none;background:rgba(0,0,0,.95);padding:24px;border-radius:10px">
+    <img id="final-img" src="玉匣/d1.png" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);z-index:180;width:min(500px,90vw);height:auto;object-fit:contain;transition:transform 1.5s cubic-bezier(.22,1,.36,1);pointer-events:none;background:rgba(0,0,0,.95);padding:24px;border-radius:10px">
     <p style="color:#444;font-size:10px;text-align:center;margin-top:10px">终章 · 圣火宝匣</p>
   </div>
 </div>
@@ -193,14 +193,14 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
   <div class="box-wrap">
     <div class="box-img-wrap" id="box-wrap" onclick="openBox()">
       <div class="glow" id="box-glow"></div>
-      <img id="box-img" src="玉匣关上.jpg" alt="玉匣" style="width:100%;height:100%;object-fit:contain">
+      <img id="box-img" src="玉匣关上.png" alt="玉匣" style="width:100%;height:100%;object-fit:contain">
     </div>
     <p class="box-hint" id="box-hint">轻触玉匣 · 开启探索</p>
     <p id="scroll-hint" style="display:none;color:#BD9B4A;font-size:12px;text-align:center;animation:scrollBounce 1.5s ease-in-out infinite">↓ 向下滑动探索 ↓</p>
   </div>
   <div class="scroll-wrap" id="scroll-wrap" style="display:none">
     <div style="position:relative;margin:0 12px;line-height:0">
-      <img src="卷轴.jpg" alt="" style="width:100%;height:auto;display:block">
+      <img src="卷轴.png" alt="" style="width:100%;height:auto;display:block">
       <div style="position:absolute;top:5%;left:24%;right:24%;bottom:5%;display:flex;flex-direction:column;justify-content:center">
         <h3 style="text-align:center;font-size:clamp(15px,2.8vw,22px);color:#3D2010;margin-bottom:4%;font-family:'KaiTi','STKaiti',serif;letter-spacing:.12em">石 家 河 文 明</h3>
         <p style="font-size:clamp(9px,1.6vw,13px);color:#5A3820;line-height:1.9;text-indent:2em;margin-bottom:4%;font-family:'KaiTi','STKaiti',serif">石家河遗址，位于湖北天门，乃长江中游迄今发现规模最大、等级最高的新石器时代聚落遗址群。总面积约八平方公里，距今六千五百至四千年。以精湛玉器工艺与发达稻作农业，实证长江流域同为中华文明核心发源地。</p>
@@ -292,12 +292,37 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
 <script>
 // ═══════════ LOADING ═══════════
 var p=0,ti=setInterval(function(){p+=Math.random()*10+3;if(p>=100){p=100;clearInterval(ti);document.getElementById('ltxt').textContent='加载完成';document.getElementById('lenter').classList.add('show')}document.getElementById('lbar').style.width=p+'%';if(p>40)document.getElementById('ltxt').textContent='正在唤醒千年玉魂...';if(p>75)document.getElementById('ltxt').textContent='即将开启时空之门...'},500);
-function enter(){playSFX("start");var l=document.getElementById('loading');l.style.transition='opacity .6s';l.style.opacity='0';setTimeout(function(){l.classList.add('hide');init();var mb=document.getElementById('music-btn');mb.style.display='block';var b=document.getElementById('bgm');b.volume=0.7;b.load();var startBGM=function(){b.play().then(function(){document.getElementById('music-icon').style.animation='musicSpin 3s linear infinite'}).catch(function(){mb.style.opacity='.3'})};if(b.readyState>=2){startBGM()}else{b.addEventListener('canplay',startBGM,{once:true})}},600)}
+// Background image preloader
+(function preloadAll(){
+  var queue=[];
+  // Comic images
+  for(var i=1;i<=16;i++){var pngs=[1,3,4,7,11,15];var ext=pngs.indexOf(i)>=0?'.png':'.jpg';queue.push('漫画/'+i+ext)}
+  // 3D images
+  [{p:'3D/玉虎/',f:['玉虎正左.png','玉虎前左.png','玉虎正前.png','玉虎前右.png','玉虎正右.png','玉虎后右.png','玉虎正后.png','玉虎后左.png']},{p:'3D/玉凤/',f:['玉凤1.png','玉凤2.png','玉凤3.png','玉凤4.png','玉凤5.png','玉凤6.png','玉凤7.png','玉凤8.png']},{p:'3D/玉人首/',f:['玉人首1.png','玉人首2.png','玉人首3.png','玉人首4.png','玉人首5.png','玉人首6.png','玉人首7.png','玉人首8.png']},{p:'3D/玉蝉/',f:['玉蝉1.png','玉蝉2.png','玉蝉3.png','玉蝉4.png','玉蝉5.png','玉蝉6.png','玉蝉7.png','玉蝉8.png']},{p:'3D/陶鼎/',f:['陶鼎正面.png','陶鼎右侧.png','陶鼎背面.png','陶鼎左侧.png']},{p:'3D/玉鹰/',f:['玉鹰1.png','玉鹰2.png','玉鹰3.png','玉鹰4.png','玉鹰5.png','玉鹰6.png','玉鹰7.png','玉鹰8.png']}].forEach(function(a){a.f.forEach(function(f){queue.push(a.p+f)})});
+  // 古画风
+  ['玉虎','玉凤','玉人首','玉婵','陶鼎','玉鹰'].forEach(function(n){queue.push('古画风/'+n+'.png')});
+  // Background, scroll, box
+  queue.push('背景.png','卷轴.png','玉匣关上.png','玉匣打开.png');
+  // Timeline images
+  [['1954',['石家河遗址鸟瞰图.webp']],['1955出土文物实拍',['1955出土玉团凤.png','鸟首玉璜.png']],['1987',['肖家屋脊成套玉器.png']],['1990',['罗家柏岭出土石锛.jpg']],['2008',['石家河古城墙航拍标注图.png','探源工程聚落地形图.jpg']],['2015',['虎形玉如意.png','虎座双鹰玉佩.png','连体双人头像玉玦.png','谭家岭古城壕发掘探方.jpg','谭家岭遗址标识碑（2015实拍）.jpg']],['2017',['古城夯土地层剖面.jpg','谭家岭城垣城壕剖面.jpg','印信台祭祀台复原实拍.png','印信台祭祀土台.png']],['2021',['石家河遗址大门标识.png','玉凤主题雕塑.png']],['2024',['凤归故里主视觉墙.png','玉神特展展厅全景.png','玉团凤返乡展柜.png']]].forEach(function(y){y[1].forEach(function(f){queue.push(y[0]+'/'+f)})});
+  // Cloud images
+  for(var c=1;c<=9;c++)queue.push('祥云/祥云'+c+'.png');
+  // Load in small batches
+  var idx=0,batch=3;
+  function loadNext(){
+    for(var i=0;i<batch&&idx<queue.length;i++,idx++){
+      var img=new Image();img.src=queue[idx]
+    }
+    if(idx<queue.length)setTimeout(loadNext,200)
+  }
+  loadNext()
+})();
+function enter(){playSFX("start");var l=document.getElementById('loading');l.style.transition='opacity .6s';l.style.opacity='0';setTimeout(function(){l.classList.add('hide');init();var mb=document.getElementById('music-btn');mb.style.display='block';var b=document.getElementById('bgm');b.volume=0.7;setTimeout(function(){b.play().then(function(){document.getElementById('music-icon').style.animation='musicSpin 3s linear infinite'}).catch(function(){mb.style.opacity='.3'})},1000)},600)}
 
 // ═══════════ GLOBAL ═══════════
 var cur=1;
 function playSFX(id){var a=document.getElementById('sfx-'+id);if(a){a.currentTime=0;a.play().catch(function(){})}}
-function toggleMusic(){var b=document.getElementById('bgm'),i=document.getElementById('music-icon');if(b.paused){if(b.readyState===0)b.load();var playB=function(){b.play();i.style.animation='musicSpin 3s linear infinite'};if(b.readyState>=2)playB();else b.addEventListener('canplay',playB,{once:true})}else{b.pause();i.style.animation='none'}}
+function toggleMusic(){var b=document.getElementById('bgm'),i=document.getElementById('music-icon');if(b.paused){b.play();i.style.animation='musicSpin 3s linear infinite'}else{b.pause();i.style.animation='none'}}
 function goPage(n){
   if(n<1||n>4)return;
   for(var i=1;i<=4;i++)document.getElementById('pg'+i).classList.toggle('on',i===n);
@@ -314,8 +339,8 @@ function goPage(n){
 // ═══════════ INIT ═══════════
 function init(){initBg();buildStrata();goPage(1)}
 function initBg(){
-  document.getElementById('bg-base').style.backgroundImage='url(背景.jpg)';
-  var files=['祥云1.jpg','祥云2.png','祥云3.jpg','祥云4.jpg','祥云5.png','祥云6.png','祥云7.jpg','祥云8.png','祥云9.png'];
+  document.getElementById('bg-base').style.backgroundImage='url(背景.png)';
+  var files=['祥云1.png','祥云2.png','祥云3.png','祥云4.png','祥云5.png','祥云6.png','祥云7.png','祥云8.png','祥云9.png'];
   [{id:'cloud-back',c:3,o:.2,s:.015,b:3,z:.35},{id:'cloud-mid',c:5,o:.3,s:.04,b:1.5,z:.24},{id:'cloud-front',c:7,o:.4,s:.09,b:0,z:.16}].forEach(function(l){
     var el=document.getElementById(l.id);el._sp=l.s;var cv=document.createElement('canvas');el.appendChild(cv);var ctx=cv.getContext('2d');
     var imgs=files.map(function(f){var i=new Image();i.src='祥云/'+f;return i});
@@ -330,11 +355,11 @@ function initBg(){
 
 // ═══════════ BOX ═══════════
 function openBox(){
-  var vo=document.getElementById('video-overlay'),v=document.getElementById('intro-video');var bgm=document.getElementById('bgm'),wasBGM=!bgm.paused;if(wasBGM)bgm.pause();var bgm=document.getElementById('bgm'),wasBGM=!bgm.paused;if(wasBGM)bgm.pause();
+  var vo=document.getElementById('video-overlay'),v=document.getElementById('intro-video');var bgm=document.getElementById('bgm'),wasBGM=!bgm.paused;if(wasBGM)bgm.pause();
   vo.style.display='flex';requestAnimationFrame(function(){requestAnimationFrame(function(){vo.style.opacity='1'})});
   var lh=document.createElement('div');lh.style.cssText='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#BD9B4A;font-size:16px;letter-spacing:.1em;z-index:10';lh.textContent='视频加载中...';vo.appendChild(lh);v.load();var onReady=function(){lh.remove();v.play().then(function(){}).catch(function(){ev()})};if(v.readyState>=4){onReady()}else{v.addEventListener('canplaythrough',onReady,{once:true});v.addEventListener('error',function(){lh.textContent='加载失败请跳过';lh.style.color='#888'},{once:true})}v.onended=ev;
   document.getElementById('skip-video').onclick=function(){ev()};
-  function ev(){v.pause();v.currentTime=0;vo.style.opacity='0';setTimeout(function(){vo.style.display='none';document.getElementById('box-img').src='玉匣打开.jpg';document.getElementById('box-glow').classList.add('on');document.getElementById('box-hint').textContent='玉匣已开';var sw=document.getElementById('scroll-wrap');sw.style.display='block';sw.classList.add('open');document.getElementById('strata-section').style.display='block';document.getElementById('scroll-hint').style.display='block';if(wasBGM){bgm.load();var rp=function(){bgm.play().catch(function(){})};if(bgm.readyState>=2)rp();else bgm.addEventListener('canplay',rp,{once:true})}},800)}
+  function ev(){v.pause();v.currentTime=0;vo.style.opacity='0';setTimeout(function(){vo.style.display='none';document.getElementById('box-img').src='玉匣打开.png';document.getElementById('box-glow').classList.add('on');document.getElementById('box-hint').textContent='玉匣已开';var sw=document.getElementById('scroll-wrap');sw.style.display='block';sw.classList.add('open');document.getElementById('strata-section').style.display='block';document.getElementById('scroll-hint').style.display='block';if(wasBGM){bgm.load();var rp=function(){bgm.play().catch(function(){})};if(bgm.readyState>=2)rp();else bgm.addEventListener('canplay',rp,{once:true})}},800)}
 }
 
 // ═══════════ STRATA ═══════════
@@ -348,7 +373,7 @@ function buildStrata(){
   var ruler=document.getElementById('strata-ruler');for(var m=0;m<=11.5;m+=0.5){var tk=document.createElement('div');tk.className='tk'+(m%1===0?' mj':'');tk.style.top=(m*spx)+'px';ruler.appendChild(tk);if(m%1===0){var l=document.createElement('div');l.className='tkl';l.style.top=(m*spx)+'px';l.textContent=m+'m';ruler.appendChild(l)}}
   sa.forEach(function(a){
     var blob=document.createElement('div');blob.className='blob';blob.style.cssText='top:'+(a.d*spx)+'px;left:'+a.x+'%;width:'+a.w+'px;height:'+a.h+'px';
-    var img=document.createElement('img');img.src='古画风/'+a.name+'.jpg';img.alt=a.name;img.style.cssText='width:100%;height:100%;object-fit:contain;opacity:0';blob.appendChild(img);
+    var img=document.createElement('img');img.src='古画风/'+a.name+'.png';img.alt=a.name;img.style.cssText='width:100%;height:100%;object-fit:contain;opacity:0';blob.appendChild(img);
     var cv=document.createElement('canvas');cv.width=a.w;cv.height=a.h;cv.style.cssText='position:absolute;top:0;left:0;width:100%;height:100%';blob.appendChild(cv);
     var ripple=document.createElement('div');ripple.className='ripple';ripple.innerHTML='<div class="r"></div><div class="r"></div><div class="r"></div>';blob.appendChild(ripple);
     col.appendChild(blob);blob._a=a;blob._cv=cv;blob._ripple=ripple;
@@ -378,7 +403,7 @@ function initBlob(blob){
 }
 
 // ═══════════ 3D VIEWER ═══════════
-var vArts=[{id:'yuhu',name:'玉虎',meta:'长4.8cm · 肖家屋脊 · 距今4200年',desc:'呈蹲踞状，虎首高昂，双目圆睁。虎身以阴线刻出斑纹，整体浑厚威猛。1987年出土。',n:8,path:'3D/玉虎/',files:['玉虎正左.png','玉虎前左.png','玉虎正前.png','玉虎前右.png','玉虎正右.png','玉虎后右.png','玉虎正后.png','玉虎后左.jpg']},{id:'yufeng',name:'玉凤',meta:'长7.5cm · 肖家屋脊 · 距今4200年',desc:'被誉为「中华第一凤」。凤鸟展翅欲飞，线条流畅细腻。',n:8,path:'3D/玉凤/',files:['玉凤1.jpg','玉凤2.png','玉凤3.jpg','玉凤4.jpg','玉凤5.png','玉凤6.png','玉凤7.jpg','玉凤8.jpg']},{id:'yuren',name:'玉人首',meta:'谭家岭 · 距今4200-4000年',desc:'圆雕作品，面部刻画细致，双耳佩环，头顶冠饰。',n:8,path:'3D/玉人首/',files:['玉人首1.jpg','玉人首2.png','玉人首3.jpg','玉人首4.jpg','玉人首5.png','玉人首6.png','玉人首7.jpg','玉人首8.jpg']},{id:'yuchan',name:'玉蝉',meta:'谭家岭 · 距今4200-4000年',desc:'造型写实，蝉翼纹理清晰。蝉象征复活与永生。',n:8,path:'3D/玉蝉/',files:['玉蝉1.jpg','玉蝉2.png','玉蝉3.jpg','玉蝉4.jpg','玉蝉5.png','玉蝉6.png','玉蝉7.jpg','玉蝉8.jpg']},{id:'taoding',name:'陶鼎',meta:'邓家湾 · 距今4500年',desc:'石家河文化典型陶器，三足鼎立，器身饰有篮纹。',n:4,path:'3D/陶鼎/',files:['陶鼎正面.png','陶鼎右侧.png','陶鼎背面.png','陶鼎左侧.jpg']},{id:'yuying',name:'玉鹰',meta:'谭家岭 · 距今4000年',desc:'玉鹰展翅，造型矫健有力。可能是部落图腾或权力的象征。',n:8,path:'3D/玉鹰/',files:['玉鹰1.jpg','玉鹰2.png','玉鹰3.jpg','玉鹰4.jpg','玉鹰5.png','玉鹰6.png','玉鹰7.jpg','玉鹰8.jpg']}];
+var vArts=[{id:'yuhu',name:'玉虎',meta:'长4.8cm · 肖家屋脊 · 距今4200年',desc:'呈蹲踞状，虎首高昂，双目圆睁。虎身以阴线刻出斑纹，整体浑厚威猛。1987年出土。',n:8,path:'3D/玉虎/',files:['玉虎正左.png','玉虎前左.png','玉虎正前.png','玉虎前右.png','玉虎正右.png','玉虎后右.png','玉虎正后.png','玉虎后左.png']},{id:'yufeng',name:'玉凤',meta:'长7.5cm · 肖家屋脊 · 距今4200年',desc:'被誉为「中华第一凤」。凤鸟展翅欲飞，线条流畅细腻。',n:8,path:'3D/玉凤/',files:['玉凤1.png','玉凤2.png','玉凤3.png','玉凤4.png','玉凤5.png','玉凤6.png','玉凤7.png','玉凤8.png']},{id:'yuren',name:'玉人首',meta:'谭家岭 · 距今4200-4000年',desc:'圆雕作品，面部刻画细致，双耳佩环，头顶冠饰。',n:8,path:'3D/玉人首/',files:['玉人首1.png','玉人首2.png','玉人首3.png','玉人首4.png','玉人首5.png','玉人首6.png','玉人首7.png','玉人首8.png']},{id:'yuchan',name:'玉蝉',meta:'谭家岭 · 距今4200-4000年',desc:'造型写实，蝉翼纹理清晰。蝉象征复活与永生。',n:8,path:'3D/玉蝉/',files:['玉蝉1.png','玉蝉2.png','玉蝉3.png','玉蝉4.png','玉蝉5.png','玉蝉6.png','玉蝉7.png','玉蝉8.png']},{id:'taoding',name:'陶鼎',meta:'邓家湾 · 距今4500年',desc:'石家河文化典型陶器，三足鼎立，器身饰有篮纹。',n:4,path:'3D/陶鼎/',files:['陶鼎正面.png','陶鼎右侧.png','陶鼎背面.png','陶鼎左侧.png']},{id:'yuying',name:'玉鹰',meta:'谭家岭 · 距今4000年',desc:'玉鹰展翅，造型矫健有力。可能是部落图腾或权力的象征。',n:8,path:'3D/玉鹰/',files:['玉鹰1.png','玉鹰2.png','玉鹰3.png','玉鹰4.png','玉鹰5.png','玉鹰6.png','玉鹰7.png','玉鹰8.png']}];
 var vCa=0,vCf=0,vF=[];
 function vFrm(a,fi){return a.path+a.files[fi%a.n]}
 var vpRunning=false;
@@ -411,7 +436,7 @@ function makeComicPanels(gid,labels,colors,lid){
       var p=document.createElement('div');p.className='comic-panel';
       var clip='',extra='';if(col.trap==='r'){clip=';clip-path:polygon(0 0,100% 0,85% 100%,0 100%)';extra=';margin-right:-8%'}if(col.trap==='l'){clip=';clip-path:polygon(15% 0,100% 0,100% 100%,0 100%)';extra=';margin-left:-8%'}
       p.style.cssText='width:'+col.w+';height:'+col.h+clip+extra;
-      var fn=lid===0?(pi+1):(pi+9);var ext='.jpg';
+      var fn=lid===0?(pi+1):(pi+9);var pngs=[1,3,4,7,11,15];var ext=pngs.indexOf(fn)>=0?'.png':'.jpg';
       var img=document.createElement('img');img.src='漫画/'+fn+ext;p.appendChild(img);
       var lbl=document.createElement('div');lbl.className='pl';lbl.textContent=labels[pi];p.appendChild(lbl);
       rd.appendChild(p);result.push(p);pi++
