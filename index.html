@@ -272,7 +272,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
 
 <!-- VIDEO OVERLAY -->
 <div id="video-overlay" style="position:fixed;inset:0;z-index:800;background:#000;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .8s">
-  <video id="intro-video" style="max-width:100%;max-height:100%;object-fit:contain;transition:opacity .8s" playsinline preload="none" src="玉匣视频.mp4"></video>
+  <video id="intro-video" style="max-width:100%;max-height:100%;object-fit:contain;transition:opacity .8s" playsinline preload="metadata" src="玉匣视频.mp4"></video>
   <button id="skip-video" style="position:absolute;top:16px;right:16px;color:rgba(255,255,255,.6);background:rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.25);padding:6px 16px;border-radius:16px;font-size:11px;cursor:pointer;letter-spacing:.1em">跳过 ▸</button>
 </div>
 
@@ -330,7 +330,7 @@ function initBg(){
 function openBox(){
   var vo=document.getElementById('video-overlay'),v=document.getElementById('intro-video');var bgm=document.getElementById('bgm'),wasBGM=!bgm.paused;if(wasBGM)bgm.pause();
   vo.style.display='flex';requestAnimationFrame(function(){requestAnimationFrame(function(){vo.style.opacity='1'})});
-  v.play().then(function(){}).catch(function(){ev()});v.onended=ev;
+  v.load();var onReady=function(){v.play().then(function(){}).catch(function(){ev()})};if(v.readyState>=3){onReady()}else{v.addEventListener('canplay',onReady,{once:true})}v.onended=ev;
   document.getElementById('skip-video').onclick=function(){ev()};
   function ev(){v.pause();v.currentTime=0;vo.style.opacity='0';setTimeout(function(){vo.style.display='none';document.getElementById('box-img').src='玉匣打开.png';document.getElementById('box-glow').classList.add('on');document.getElementById('box-hint').textContent='玉匣已开';var sw=document.getElementById('scroll-wrap');sw.style.display='block';sw.classList.add('open');document.getElementById('strata-section').style.display='block';document.getElementById('scroll-hint').style.display='block';if(wasBGM)bgm.play().catch(function(){})},800)}
 }
@@ -390,7 +390,7 @@ function stopVP(){vpRunning=false}
 function openV(id){
   var i=vArts.findIndex(function(a){return a.id===id});if(i<0)return;vCa=i;var a=vArts[i];vF=[];for(var j=0;j<a.n;j++)vF.push(vFrm(a,j));vCf=0;
   document.getElementById('v-img').src=vF[vCf];document.getElementById('v-name').textContent=a.name;document.getElementById('v-meta').textContent=a.meta;document.getElementById('v-desc').textContent=a.desc;document.getElementById('v-info').textContent='拖拽旋转 360 · '+a.n+'个角度';
-  document.getElementById('vo').style.display='flex';startVP();playSFX('view')
+  var imgs=[];for(var k=0;k<vF.length;k++){var img=new Image();img.src=vF[k];imgs.push(img)}document.getElementById('vo').style.display='flex';startVP();playSFX('view')
 }
 document.getElementById('v-wrap').addEventListener('pointerdown',function(e){var dx=e.clientX,sf=vCf;this.setPointerCapture(e.pointerId);var mv=function(e){if(!this.hasPointerCapture(e.pointerId))return;var nf=((sf+Math.round((e.clientX-dx)/35))%vArts[vCa].n+vArts[vCa].n)%vArts[vCa].n;if(nf!==vCf){vCf=nf;document.getElementById('v-img').src=vF[vCf]}};this._mv=mv;this.addEventListener('pointermove',mv)});
 document.getElementById('v-wrap').addEventListener('pointerup',function(e){this.removeEventListener('pointermove',this._mv);this.releasePointerCapture(e.pointerId)});
