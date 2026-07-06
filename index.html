@@ -136,7 +136,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
 
 <div id="bg-base"></div><div class="bg-layer" id="cloud-back"></div><div class="bg-layer" id="cloud-mid"></div><div class="bg-layer" id="cloud-front"></div>
 
-<audio id="bgm" loop preload="none" src="音效/bgm.MP3"></audio>
+<audio id="bgm" loop preload="auto" src="音效/bgm.MP3"></audio>
 <audio id="sfx-start" preload="auto" src="音效/start.MP3"></audio>
 <audio id="sfx-panel" preload="auto" src="音效/panel.MP3"></audio>
 <audio id="sfx-page" preload="auto" src="音效/page.MP3"></audio>
@@ -145,6 +145,9 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
 <audio id="sfx-dig" preload="auto" src="音效/dig.MP3"></audio>
 <audio id="sfx-switch" preload="auto" src="音效/switch.MP3"></audio>
 <audio id="sfx-view" preload="auto" src="音效/view.MP3"></audio>
+<audio id="sfx-gear" preload="auto" src="音效/齿轮.MP3"></audio>
+<audio id="sfx-flip" preload="auto" src="音效/翻.MP3"></audio>
+<audio id="sfx-btn" preload="auto" src="音效/按钮.MP3"></audio>
 <audio id="sfx-gear" preload="auto" src="音效/齿轮.MP3"></audio>
 <audio id="sfx-flip" preload="auto" src="音效/翻.MP3"></audio>
 <audio id="sfx-btn" preload="auto" src="音效/按钮.MP3"></audio>
@@ -289,7 +292,7 @@ body{font-family:'Georgia','Noto Serif TC',serif;background:#0A0908;color:#F0E8D
 <script>
 // ═══════════ LOADING ═══════════
 var p=0,ti=setInterval(function(){p+=Math.random()*10+3;if(p>=100){p=100;clearInterval(ti);document.getElementById('ltxt').textContent='加载完成';document.getElementById('lenter').classList.add('show')}document.getElementById('lbar').style.width=p+'%';if(p>40)document.getElementById('ltxt').textContent='正在唤醒千年玉魂...';if(p>75)document.getElementById('ltxt').textContent='即将开启时空之门...'},500);
-function enter(){playSFX("start");var l=document.getElementById('loading');l.style.transition='opacity .6s';l.style.opacity='0';setTimeout(function(){l.classList.add('hide');init();var mb=document.getElementById('music-btn');mb.style.display='block';var b=document.getElementById('bgm');b.volume=0.7;b.load();setTimeout(function(){b.play().then(function(){document.getElementById('music-icon').style.animation='musicSpin 3s linear infinite'}).catch(function(){mb.style.opacity='.3'})},1000)},600)}
+function enter(){playSFX("start");var l=document.getElementById('loading');l.style.transition='opacity .6s';l.style.opacity='0';setTimeout(function(){l.classList.add('hide');init();var mb=document.getElementById('music-btn');mb.style.display='block';var b=document.getElementById('bgm');b.volume=0.7;setTimeout(function(){b.play().then(function(){document.getElementById('music-icon').style.animation='musicSpin 3s linear infinite'}).catch(function(){mb.style.opacity='.3'})},1000)},600)}
 
 // ═══════════ GLOBAL ═══════════
 var cur=1;
@@ -302,7 +305,7 @@ function goPage(n){
   document.getElementById('nav-prev').style.display=n>1?'block':'none';
   document.getElementById('nav-next').style.display=n<4?'block':'none';
   document.getElementById('comic-nav').classList.toggle('on',n===1);
-  cur=n;if(n===3){initTLScrollSound()}
+  cur=n;if(n===3)initTLScrollSound();if(n===3){initTLScrollSound()}
   document.getElementById('music-btn').style.display=n>=1?'block':'none';
   if(n===1&&!window._rin){initComic();window._rin=true}
   if(n===3&&!window._tin){initTL();window._tin=true}
@@ -327,9 +330,9 @@ function initBg(){
 
 // ═══════════ BOX ═══════════
 function openBox(){
-  var vo=document.getElementById('video-overlay'),v=document.getElementById('intro-video');var bgm=document.getElementById('bgm'),wasBGM=!bgm.paused;if(wasBGM)bgm.pause();
+  var vo=document.getElementById('video-overlay'),v=document.getElementById('intro-video');var bgm=document.getElementById('bgm'),wasBGM=!bgm.paused;if(wasBGM)bgm.pause();var bgm=document.getElementById('bgm'),wasBGM=!bgm.paused;if(wasBGM)bgm.pause();
   vo.style.display='flex';requestAnimationFrame(function(){requestAnimationFrame(function(){vo.style.opacity='1'})});
-  var loadingHint=document.createElement('div');loadingHint.style.cssText='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#BD9B4A;font-size:16px;letter-spacing:.1em;z-index:10';loadingHint.textContent='视频加载中...';vo.appendChild(loadingHint);v.load();var onReady=function(){loadingHint.remove();v.play().then(function(){}).catch(function(){ev()})};if(v.readyState>=4){onReady()}else{v.addEventListener('canplaythrough',onReady,{once:true});v.addEventListener('error',function(){loadingHint.textContent='加载失败，请跳过';loadingHint.style.color='#888'},{once:true})}v.onended=ev;
+  var lh=document.createElement('div');lh.style.cssText='position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#BD9B4A;font-size:16px;letter-spacing:.1em;z-index:10';lh.textContent='视频加载中...';vo.appendChild(lh);v.load();var onReady=function(){lh.remove();v.play().then(function(){}).catch(function(){ev()})};if(v.readyState>=4){onReady()}else{v.addEventListener('canplaythrough',onReady,{once:true});v.addEventListener('error',function(){lh.textContent='加载失败请跳过';lh.style.color='#888'},{once:true})}v.onended=ev;
   document.getElementById('skip-video').onclick=function(){ev()};
   function ev(){v.pause();v.currentTime=0;vo.style.opacity='0';setTimeout(function(){vo.style.display='none';document.getElementById('box-img').src='玉匣打开.png';document.getElementById('box-glow').classList.add('on');document.getElementById('box-hint').textContent='玉匣已开';var sw=document.getElementById('scroll-wrap');sw.style.display='block';sw.classList.add('open');document.getElementById('strata-section').style.display='block';document.getElementById('scroll-hint').style.display='block';if(wasBGM)bgm.play().catch(function(){})},800)}
 }
@@ -375,23 +378,25 @@ function initBlob(blob){
 }
 
 // ═══════════ 3D VIEWER ═══════════
-	var vArts=[{id:'yuhu',name:'玉虎',meta:'长4.8cm · 肖家屋脊 · 距今4200年',desc:'呈蹲踞状，虎首高昂，双目圆睁。虎身以阴线刻出斑纹，整体浑厚威猛。1987年出土。',n:8,path:'3D/玉虎/',files:['玉虎正左.png','玉虎前左.png','玉虎正前.png','玉虎前右.png','玉虎正右.png','玉虎后右.png','玉虎正后.png','玉虎后左.png']},{id:'yufeng',name:'玉凤',meta:'长7.5cm · 肖家屋脊 · 距今4200年',desc:'被誉为「中华第一凤」。凤鸟展翅欲飞，线条流畅细腻。',n:8,path:'3D/玉凤/',files:['玉凤1.png','玉凤2.png','玉凤3.png','玉凤4.png','玉凤5.png','玉凤6.png','玉凤7.png','玉凤8.png']},{id:'yuren',name:'玉人首',meta:'谭家岭 · 距今4200-4000年',desc:'圆雕作品，面部刻画细致，双耳佩环，头顶冠饰。',n:8,path:'3D/玉人首/',files:['玉人首1.png','玉人首2.png','玉人首3.png','玉人首4.png','玉人首5.png','玉人首6.png','玉人首7.png','玉人首8.png']},{id:'yuchan',name:'玉蝉',meta:'谭家岭 · 距今4200-4000年',desc:'造型写实，蝉翼纹理清晰。蝉象征复活与永生。',n:8,path:'3D/玉蝉/',files:['玉蝉1.png','玉蝉2.png','玉蝉3.png','玉蝉4.png','玉蝉5.png','玉蝉6.png','玉蝉7.png','玉蝉8.png']},{id:'taoding',name:'陶鼎',meta:'邓家湾 · 距今4500年',desc:'石家河文化典型陶器，三足鼎立，器身饰有篮纹。',n:4,path:'3D/陶鼎/',files:['陶鼎正面.png','陶鼎右侧.png','陶鼎背面.png','陶鼎左侧.png']},{id:'yuying',name:'玉鹰',meta:'谭家岭 · 距今4000年',desc:'玉鹰展翅，造型矫健有力。可能是部落图腾或权力的象征。',n:8,path:'3D/玉鹰/',files:['玉鹰1.png','玉鹰2.png','玉鹰3.png','玉鹰4.png','玉鹰5.png','玉鹰6.png','玉鹰7.png','玉鹰8.png']}];
-	var vCa=0,vCf=0,vF=[],vReady=false,vLoaded=0,vTotal=0;
-	function vFrm(a,fi){return a.path+a.files[fi%a.n]}
-	var vpRunning=false;
-	function startVP(){
-	  var pc=document.getElementById('vo-particles'),pctx=pc.getContext('2d');pc.width=innerWidth;pc.height=innerHeight;
-	  var ps=[];for(var i=0;i<80;i++)ps.push({x:Math.random()*pc.width,y:Math.random()*pc.height,r:Math.random()*1.5+.6,vx:(Math.random()-.5)*.35,vy:-(Math.random()*.5+.1),o:Math.random()*.5+.2});
-	  if(vpRunning)return;vpRunning=true;
-	  (function lp(){if(!vpRunning)return;pctx.clearRect(0,0,pc.width,pc.height);ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;if(p.y<-10){p.y=pc.height+10;p.x=Math.random()*pc.width}pctx.beginPath();pctx.arc(p.x,p.y,p.r,0,Math.PI*2);pctx.fillStyle='rgba(189,155,74,'+p.o+')';pctx.fill()});requestAnimationFrame(lp)})()
-	}
-	function stopVP(){vpRunning=false}
-	function openV(id){
-	  var i=vArts.findIndex(function(a){return a.id===id});if(i<0)return;vCa=i;var a=vArts[i];vF=[];for(var j=0;j<a.n;j++)vF.push(vFrm(a,j));vCf=0;vReady=false;vLoaded=0;vTotal=a.n;
-	  document.getElementById('v-name').textContent=a.name;document.getElementById('v-meta').textContent=a.meta;document.getElementById('v-desc').textContent=a.desc;document.getElementById('v-info').textContent='图片加载中...';document.getElementById('vo').style.display='flex';startVP();playSFX('view');
-	  var preloaded=[];for(var k=0;k<a.n;k++){var img=new Image();img.onload=function(){vLoaded++;if(vLoaded>=vTotal){vReady=true;document.getElementById('v-img').src=vF[0];document.getElementById('v-info').textContent='拖拽旋转 360 · '+vTotal+'个角度'}};img.onerror=function(){vLoaded++;if(vLoaded>=vTotal&&!vReady){vReady=true;document.getElementById('v-img').src=vF[0];document.getElementById('v-info').textContent='拖拽旋转 360 · '+vTotal+'个角度'}};img.src=vF[k];preloaded.push(img)}
-	}
-	var vWrap=document.getElementById('v-wrap');vWrap.addEventListener('pointerdown',function(e){if(!vReady)return;e.preventDefault();var dx=e.clientX,sf=vCf,id=e.pointerId;var mv=function(ev){if(!vReady||ev.pointerId!==id)return;var nf=((sf+Math.round((ev.clientX-dx)/35))%vTotal+vTotal)%vTotal;if(nf!==vCf){vCf=nf;document.getElementById('v-img').src=vF[vCf]}};var up=function(ev){if(ev.pointerId!==id)return;document.removeEventListener('pointermove',mv);document.removeEventListener('pointerup',up)};document.addEventListener('pointermove',mv);document.addEventListener('pointerup',up)});
+var vArts=[{id:'yuhu',name:'玉虎',meta:'长4.8cm · 肖家屋脊 · 距今4200年',desc:'呈蹲踞状，虎首高昂，双目圆睁。虎身以阴线刻出斑纹，整体浑厚威猛。1987年出土。',n:8,path:'3D/玉虎/',files:['玉虎正左.png','玉虎前左.png','玉虎正前.png','玉虎前右.png','玉虎正右.png','玉虎后右.png','玉虎正后.png','玉虎后左.png']},{id:'yufeng',name:'玉凤',meta:'长7.5cm · 肖家屋脊 · 距今4200年',desc:'被誉为「中华第一凤」。凤鸟展翅欲飞，线条流畅细腻。',n:8,path:'3D/玉凤/',files:['玉凤1.png','玉凤2.png','玉凤3.png','玉凤4.png','玉凤5.png','玉凤6.png','玉凤7.png','玉凤8.png']},{id:'yuren',name:'玉人首',meta:'谭家岭 · 距今4200-4000年',desc:'圆雕作品，面部刻画细致，双耳佩环，头顶冠饰。',n:8,path:'3D/玉人首/',files:['玉人首1.png','玉人首2.png','玉人首3.png','玉人首4.png','玉人首5.png','玉人首6.png','玉人首7.png','玉人首8.png']},{id:'yuchan',name:'玉蝉',meta:'谭家岭 · 距今4200-4000年',desc:'造型写实，蝉翼纹理清晰。蝉象征复活与永生。',n:8,path:'3D/玉蝉/',files:['玉蝉1.png','玉蝉2.png','玉蝉3.png','玉蝉4.png','玉蝉5.png','玉蝉6.png','玉蝉7.png','玉蝉8.png']},{id:'taoding',name:'陶鼎',meta:'邓家湾 · 距今4500年',desc:'石家河文化典型陶器，三足鼎立，器身饰有篮纹。',n:4,path:'3D/陶鼎/',files:['陶鼎正面.png','陶鼎右侧.png','陶鼎背面.png','陶鼎左侧.png']},{id:'yuying',name:'玉鹰',meta:'谭家岭 · 距今4000年',desc:'玉鹰展翅，造型矫健有力。可能是部落图腾或权力的象征。',n:8,path:'3D/玉鹰/',files:['玉鹰1.png','玉鹰2.png','玉鹰3.png','玉鹰4.png','玉鹰5.png','玉鹰6.png','玉鹰7.png','玉鹰8.png']}];
+var vCa=0,vCf=0,vF=[];
+function vFrm(a,fi){return a.path+a.files[fi%a.n]}
+var vpRunning=false;
+function startVP(){
+  var pc=document.getElementById('vo-particles'),pctx=pc.getContext('2d');pc.width=innerWidth;pc.height=innerHeight;
+  var ps=[];for(var i=0;i<80;i++)ps.push({x:Math.random()*pc.width,y:Math.random()*pc.height,r:Math.random()*1.5+.6,vx:(Math.random()-.5)*.35,vy:-(Math.random()*.5+.1),o:Math.random()*.5+.2});
+  if(vpRunning)return;vpRunning=true;
+  (function lp(){if(!vpRunning)return;pctx.clearRect(0,0,pc.width,pc.height);ps.forEach(function(p){p.x+=p.vx;p.y+=p.vy;if(p.y<-10){p.y=pc.height+10;p.x=Math.random()*pc.width}pctx.beginPath();pctx.arc(p.x,p.y,p.r,0,Math.PI*2);pctx.fillStyle='rgba(189,155,74,'+p.o+')';pctx.fill()});requestAnimationFrame(lp)})()
+}
+function stopVP(){vpRunning=false}
+function openV(id){
+  var i=vArts.findIndex(function(a){return a.id===id});if(i<0)return;vCa=i;var a=vArts[i];vF=[];for(var j=0;j<a.n;j++)vF.push(vFrm(a,j));vCf=0;
+  document.getElementById('v-img').src=vF[vCf];document.getElementById('v-name').textContent=a.name;document.getElementById('v-meta').textContent=a.meta;document.getElementById('v-desc').textContent=a.desc;document.getElementById('v-info').textContent='拖拽旋转 360 · '+a.n+'个角度';
+  document.getElementById('vo').style.display='flex';startVP();playSFX('view')
+}
+document.getElementById('v-wrap').addEventListener('pointerdown',function(e){var dx=e.clientX,sf=vCf;this.setPointerCapture(e.pointerId);var mv=function(e){if(!this.hasPointerCapture(e.pointerId))return;var nf=((sf+Math.round((e.clientX-dx)/35))%vArts[vCa].n+vArts[vCa].n)%vArts[vCa].n;if(nf!==vCf){vCf=nf;document.getElementById('v-img').src=vF[vCf]}};this._mv=mv;this.addEventListener('pointermove',mv)});
+document.getElementById('v-wrap').addEventListener('pointerup',function(e){this.removeEventListener('pointermove',this._mv);this.releasePointerCapture(e.pointerId)});
+
 // ═══════════ COMIC ═══════════
 var comicSub=0,comicR=[0,0,0],comicPA=[],comicPB=[],comicPC=[],comicDone=false;
 function makeComicPanels(gid,labels,colors,lid){
@@ -427,7 +432,7 @@ function initComic(){
     el.addEventListener('click',function(e){
       if(e.target.tagName==='BUTTON')return;
       var h=document.getElementById(hintId);if(h)h.style.display='none';
-      if(comicR[idx]<(idx===2?3:8)){var panels=idx===0?comicPA:idx===1?comicPB:comicPC;panels[comicR[idx]].classList.add('show');comicR[idx]++;updateCN();playSFX("panel")}
+      if(comicR[idx]<(idx===2?3:8)){var panels=idx===0?comicPA:idx===1?comicPB:comicPC;panels[comicR[idx]].classList.add('show');comicR[idx]++;updateCN();playSFX('panel');playSFX("panel")}
     })
   }
   addClick(document.getElementById('comic-a'),0,'tap-hint-a');
@@ -494,7 +499,7 @@ function initTL(){
     wrap.addEventListener("mouseleave",function(){imgBg.style.opacity=imgWrap._revealed?".7":".45";imgWrap.style.transform="translateY(-50%) scale(1)";imgWrap.style.border="none";imgWrap.style.boxShadow="none";popup.style.opacity="0";dot.style.background="#27272A";dot.style.boxShadow="none";yr.style.color="#666";tt.style.color="#555"});
     dirtCv.addEventListener("click",function(e){e.stopPropagation();
       if(imgWrap._revealed){showTLDetail(ev);return}
-      imgWrap._revealed=true;playSFX("dig");
+      imgWrap._revealed=true;playSFX('dig');playSFX("dig");
       var particles=[],w=220,h=150;
       for(var p=0;p<80;p++){particles.push({x:Math.random()*w,y:Math.random()*w,vx:(Math.random()-.5)*4,vy:-(Math.random()*3+1),life:1,r:2+Math.random()*3})}
       (function anim(){dctx.clearRect(0,0,w,h);var alive=false;particles.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.1;p.life-=.02;if(p.life>0){alive=true;dctx.fillStyle="rgba(61,42,24,"+p.life+")";dctx.beginPath();dctx.arc(p.x,p.y,p.r,0,Math.PI*2);dctx.fill()}});if(alive)requestAnimationFrame(anim);else dirtCv.style.opacity="0"})();
@@ -534,6 +539,7 @@ function initTLScrollSound(){
     tlScrollTimer=setTimeout(function(){gear.pause()},150)
   })
 }
+var tlScrollTimer=null;function initTLScrollSound(){var el=document.getElementById("tl-scroll"),gear=document.getElementById("sfx-gear");if(!el||!gear||el._gw)return;el._gw=true;el.addEventListener("scroll",function(){if(gear.paused){gear.currentTime=0;gear.play().catch(function(){})}clearTimeout(tlScrollTimer);tlScrollTimer=setTimeout(function(){gear.pause()},150)})}
 // ═══════════ CERT ═══════════
 var userName='';
 function makeCert(){playSFX("btn");var n=document.getElementById('c-inp').value.trim();if(!n)return;userName=n;document.getElementById('c-name').textContent=n;var now=new Date();document.getElementById('c-date').textContent=now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日';document.getElementById('cert-msg').innerHTML=n+'，你已完成石家河<br>地层穿越之旅';document.getElementById('cert-input').style.display='none';document.getElementById('cert-quote').style.display='block';document.getElementById('cert-show').style.display='flex'}
