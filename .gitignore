@@ -5,3 +5,6 @@ test-*.png
 玉匣视频_原始备份.mp4
 音效/7月6日 (1).MP3
 deploy-tmp/
+
+# Local Netlify folder
+.netlify
