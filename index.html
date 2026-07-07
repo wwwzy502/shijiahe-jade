@@ -385,7 +385,7 @@ function blobPath(ctx,w,h,seed){
 }
 function initBlob(blob){
   var a=blob._a,cv=blob._cv,ctx=cv.getContext('2d'),w=cv.width,h=cv.height,ripple=blob._ripple,img=blob.querySelector('img'),clickBtn=blob._cb;
-  cv.style.cursor='url(������-32.png) 16 16, grab';var sfxOn=false;
+  cv.style.cursor='url(shovel-32.png) 16 16, grab';var sfxOn=false;
   ctx.save();blobPath(ctx,w,h,a.s);ctx.clip();ctx.fillStyle='#2E1C0E';ctx.fillRect(0,0,w,h);
   for(var i=0;i<600;i++){ctx.fillStyle='rgba('+(30+Math.random()*20)+','+(15+Math.random()*10)+','+(5+Math.random()*6)+','+(.25+Math.random()*.3)+')';ctx.beginPath();ctx.arc(Math.random()*w,Math.random()*h,Math.random()*2.5,0,Math.PI*2);ctx.fill()}ctx.restore();
   var br=Math.max(22,w*.08),ac=false,sc=0,wasScratch=false,maxOp=0;
